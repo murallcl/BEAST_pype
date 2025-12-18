@@ -2,8 +2,7 @@
 
 # **BEAST_pype**: An automated pipeline for high throughput phylodynamic analyses using BEAST 2.
 
-BEAST_pype is a pipeline for [BEAST 2](https://www.beast2.org/) with aim of 
-automating and parallelizing many of the steps involved in phylodynamics using 
+BEAST_pype is a pipeline with aim of automating and parallelizing many of the steps involved in phylodynamics using 
 [BEAST 2](https://www.beast2.org/). The [workflows](https://github.com/m-d-grunnill/BEAST_pype/wiki) 
 expedite phylodynamic analyses using [BEAST 2](https://www.beast2.org/) via a series of python-based Jupyter Notebooks. 
 
@@ -74,6 +73,7 @@ Venketa Duvvuri
 Louis Du Plessis  
 Samuel Alizon  
 Remco Bouckaert
+Gonche Danesh
 
 ______________________
 
