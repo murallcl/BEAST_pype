@@ -1,0 +1,209 @@
+# Template Parameter yml for running the BDSKY-Serial.ipynb workflow.
+
+#Running an Instance of this Workflow
+#-------------------------------------------
+overall_save_dir: # str
+#    Path to where you are saving all the runs of this workflow.
+
+#specific_run_save_dir: # str, optional (can be missing from yml)
+#    Sub-directory of overall_save_dir you wish to save the outputs from this workflow.
+#    If null (None in python), or an empty string a timestamp of format 'YYYY-MM-DD_hour-min-sec' is used instead.
+
+max_threads: # int, default (can be missing from yml) null (None in python)
+#    The maximum number of threads to use when calling gnu parallel in phases 2i and 4. If null (None in python) and BEAST_pype is running
+#    in a SLURM job the SLURM environment variable `SLURM_CPUS_PER_TASK` is used. If null (None in python) and BEAST_pype is NOT running in
+#    a SLURM job the number of cores available minus 1 is used (`multiprocessing.cpu_count() - 1`).
+
+#General Inputs
+#----------------
+ready_to_go_xml: # str, optional (can be missing from yml)
+#    Path to a BEAST 2 xml that you wish to run unaltered. If provided phases 2i, 2ii and 3 are skipped.
+#   If using this variable metadata_path, sample_id_field and collection_date_field are not required.
+
+template_xml_path: # str
+#    Path to template BEAST 2 xml.
+
+fasta_path: # str
+#    Path to fasta file containing sequences to be placed into template xml.
+
+metadata_path: # str
+#      Path to csv or tsv containing metadata for sequences in fasta_path.
+
+sample_id_field: # str
+#    Name of field in metadata_db containing sequence IDs.
+
+collection_date_field: # str
+#    Name of field in metadata_db containing collection dates of sequences. Should be formatted YYYY-MM-DD.
+
+# Add pre-made Initial Tree
+# --------------------
+# Do you already have an initial tree you wish to provide?
+# If so then:
+# * give path to this tree in `initial_tree_path`.
+# * set initial_tree_type to 'Distance' or 'Temporal'.
+#  Otherwise:
+# * comment it `initial_tree_path`.
+
+initial_tree_path: # str, (optional, can be missing from yml)
+#    Path to initial tree to use in generating a BEAST 2 xml. Should be .nwk file (Newick format).
+#    If provided phases 2i and 2ii are skipped.
+#    If a distance tree is used set initial_tree_type to 'Distance'.
+#    If a temporal tree is used set initial_tree_type to 'Temporal'.
+
+#Initial Tree Building & Downsampling
+#------------------
+use_initial_tree: #  bool, default (can be missing from yml) True
+#    If False an initial tree will not be generated skipping Phases 2i and 2ii. As such, in phase 4 BEAST 2 generate its own
+#    initial tree.
+
+initial_tree_type: # str (either 'Distance' or 'Temporal') or null (None in python), default (can be missing from yml) 'Temporal'
+#    Intial tree type to use.
+#    If 'Distance' and initial_tree_path is not provided the IQtree tree from Phase-2i-IQTree-Building.ipynb is used for the
+#    initial tree and phase 2ii is skipped.
+#    if 'Temporal' and initial_tree_path is not provided the TreeTime tree from Phase-2ii-TreeTime-and-Down-Sampling.ipynb
+#    is used for the initial tree.
+
+
+root_strain_names: # list of strings, optional (can be missing from yml)
+#     IDs of sequences used to root 'Temporal' initial_tree removed from fasta file and initial tree file used to generate
+#    the BEAST 2 xml.
+
+down_sample_to: # int, optional (can be missing from yml)
+#    If provided the fasta file and initial tree file used to generate the BEAST 2 xml is downsampled to this amount.
+#    If downsampling occurs the following are saved in  '{overall_save_dir}/{specific_run_save_dir}/' and used in generating
+#    a BEAST 2 xml in phase 4: #
+#     * down_sampled_time.nwk: # A downsampled temporal tree.
+#     * down_sampled_sequences.fasta: # Fasta file containing downsamplec sequences.
+#     * down_sampled_metadata.csv: # the down sampled metadata.
+
+
+#BDSky Options
+#------------------
+origin_start_addition: # float, optional (can be missing from yml)
+#    Suggested infection period of pathogen. **Should be in years.** This + initial MLE tree height is used as starting value of origin.
+
+origin_upper_addition: # float/int, optional (can be missing from yml)
+#    This + initial MLE tree height is used as upper value of origin prior.
+
+origin_prior: # dict {'lower': # float, 'upper': # float, 'start': # float}, optional (can be missing from yml)
+#    Details of the origin prior assumed to be uniformly distributed.
+
+rt_dims: # int, optional (can be missing from yml)
+#    Number of Rt dimensions (time periods over which Rt is estimated).
+
+rt_changes: # dict of strings {'unit': # 'days, weeks, months or years', 'every': # int/float, 'end': # date str YYYY-MM-DD}, optional (can be missing from yml)
+#    Instructions for setting rt_change date, going backwards from the youngest date provided in the metadata until rt_changes["end"]  is reached.
+#    If rt_changes["end"] is not given the oldest date provided in the metadata is used for this end point value instead.
+#    rt_changes["end"] should be a datetime object or string of format YYYY-MM-DD'.
+#    If given rt_dims must equal null (None in python).
+
+sampling_prop_dims: #int, optional
+    #Number of sampling proportion dimensions (time periods over which sampling proportion is estimated).
+
+sampling_prop_changes: #dict of strings {'unit': 'days, weeks, months or years', 'every': int/float, 'end': date str YYYY-MM-DD}, optional
+    #Instructions for setting sampling_prop_change date, going backwards from the youngest date provided in the metadata until sampling_prop_changes["end"]  is reached.
+    #If sampling_prop_changes["end"] is not given the oldest date provided in the metadata is used for this end point value instead.
+    #sampling_prop_changes["end"] should be a datetime object or string of format YYYY-MM-DD'.
+    #If given sampling_prop_dims must equal None.
+
+zero_sampling_before_first_sample: #bool, default (can be missing from yml) False
+#    If true fix the sampling proportion to 0 for the period before the first xml_set.
+
+#MCMC Tree/Logfile names Chain-lengths & Save Steps
+#------------------
+log_file_basename: # str, (required if not using a `ready_to_go_xml`)
+#    If provided .tree, .log and .state files from running BEAST 2 will have this name prefixed by 'run-with-seed-{seed}-',
+#    number being that of the chain.
+
+#chain_length:  # int, optional (can be missing from yml)
+#    Suggested value 10000000
+#    Number of chains to use for BEAST runs.
+#    If not given value in template_xml_path will be used.
+
+#trace_log_every: # int > 1 or float between 0 and 1 optional (can be missing from yml)
+#    Suggested value 0.001.
+#    How often to save a log file during BEAST runs.
+#    If float the save will happen as multiple of the chain_length rounded to the nearest integer.
+#    If not given value in template_xml_path will be used.
+
+#tree_log_every: # int > 1 or float between 0 and 1 optional (can be missing from yml)
+#    Suggested value 0.001.
+#    How often to save a log file during BEAST runs.
+#    If float the save will happen as multiple of the chain_length rounded to the nearest integer.
+#    If not given value in template_xml_path will be used.
+
+#screen_log_every: # int > 1 or float between 0 and 1 optional (can be missing from yml)
+#    Suggested value 0.005.
+#    How often to save a log file during BEAST runs.
+#    If float the save will happen as multiple of the chain_length rounded to the nearest integer.
+#    If not given value in template_xml_path will be used.
+
+#store_state_every: # int > 1 or float between 0 and 1 optional (can be missing from yml)
+#    Suggested value 0.001.
+#    How often to save a log file during BEAST runs.
+#    If float the save will happen as multiple of the chain_length rounded to the nearest integer.
+#    If not given value in template_xml_path will be used.
+
+
+# Running BEAST 2
+# --------------------
+number_of_beast_runs: # int
+#    Number of chains to use (number of parallel runs to do) when running BEAST (e.g. 9).
+
+#seeds: # list of ints, (optional, can be missing from yml)
+#    Seeds to use when running BEAST.
+#    If given, length of list should be the same as the number of chains (so each run has a designated seed).
+
+# Using a GPU when running BEAST 2
+# ---------------------------------------------------------------------------------------------------
+# Would you like to use a GPU when running BEAST 2?
+# If so then:
+# * Keep  `beast_options_without_a_value:` and   `'-beagle_GPU'` as is.
+# Otherwise:
+# * Comment out `beast_options_without_a_value:` and   `'-beagle_GPU'`
+
+beast_options_without_a_value: # list of strs
+  - '-beagle_GPU'
+#    Options not needing a value to pass to BEAST 2.
+#    For instance to use a GPU when running BEAST 2 this would be `['-beagle_GPU']`.
+#    See https://www.beast2.org/2021/03/31/command-line-options.html.
+
+# Use multiple cores/threads when running BEAST 2.
+#-------------------------------------------------------------------------
+# Would you like to use multiple cores/threads when running BEAST 2?
+# If so then:
+# * Alter the 3 after `'-threads'` to the number of cores/threads to use when
+#    running BEAST 2?
+# Otherwise:
+# * Comment out `beast_options_needing_a_value:` and   `'-threads'`
+
+beast_options_needing_a_value: # dict
+  '-threads':
+#    Option needing a value to pass to BEAST 2.
+#    For instance to use 3 threads when running BEAST 2 this would be: {'-threads': 3}.
+#    See https://www.beast2.org/2021/03/31/command-line-options.html.
+
+# Using a SLURM when running BEAST 2
+# ---------------------------------------------------------------------------------------------------
+# Would you like each BEAST 2 run (MCMC chain) to run in a SLURM `sbatch` call.
+# If so then:
+# * Keep  `sbatch_options_needing_a_value:`.
+# * Alter the entries under `sbatch_options_needing_a_value:` to your requirements.
+#     * If not using a GPU comment out `'--gpus':.
+#     * It is suggested that `--cpus-per-task` match the '-threads' entry in beast_options_needing_a_value.
+#     * Max runtime`(--time`) should be increased to more than an hour.
+# * If there are options you wish to pass to sbatch not requiring a value:
+#    - Uncomment `sbatch_options_without_a_value`.
+#    - Add those options under `sbatch_options_without_a_value` as a list (see https://yamline.com/tutorial/).
+# Otherwise:
+# * Comment out everything below.
+sbatch_options_needing_a_value:
+#  Options requiring a value to pass to sbatch.
+#  See https://slurm.schedmd.com/sbatch.html.
+  '--cpus-per-task':   # Number of CPU cores to use (suggest matching '-threads' entry in beast_options_needing_a_value).
+#  '--gpus':  # Number of GPU cores to use
+  '--time': # Maximum runtime (D-HH:MM:SS)
+  '--mem':  # RAM to use.
+  '--partition': # Many slurm clusters require you to name a partition to use.
+
+#sbatch_options_without_a_value:
