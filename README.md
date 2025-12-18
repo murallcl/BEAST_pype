@@ -4,7 +4,7 @@
 
 BEAST_pype is a pipeline for [BEAST 2](https://www.beast2.org/) with aim of 
 automating and parallelizing many of the steps involved in phylodynamics using 
-[BEAST 2](https://www.beast2.org/). The [workflows](https://github.com/m-d-grunnill/BEAST_pype-documentation/wiki) 
+[BEAST 2](https://www.beast2.org/). The [workflows](https://github.com/m-d-grunnill/BEAST_pype/wiki) 
 expedite phylodynamic analyses using [BEAST 2](https://www.beast2.org/) via a series of python-based Jupyter Notebooks. 
 
 BEAST_pype was concieved with the aim to speed up and automate the use of BEAST 2 analyses for routine public health use at the Public Health Agency of Canada.  
@@ -19,7 +19,7 @@ Features of BEAST_pype include:
 * Ability to create and include initial trees for faster runs.
 * Incorporating downsampling techniques.
   
-### For instructions, getting started, and more details, please see [BEAST_pype's wiki](https://github.com/m-d-grunnill/BEAST_pype-documentation/wiki).
+### For instructions, getting started, and more details, please see [BEAST_pype's wiki](https://github.com/m-d-grunnill/BEAST_pype/wiki).
 
 ## IMPORTANT NOTES
 * With this early access version of beast_pype the beast_pype python package is
@@ -30,11 +30,11 @@ Features of BEAST_pype include:
 
 ## Installation instructions:
 
-See the [wiki's installation instructions section](https://github.com/m-d-grunnill/BEAST_pype-documentation/wiki/Installation-Instructions). 
+See the [wiki's installation instructions section](https://github.com/m-d-grunnill/BEAST_pype/wiki/Installation-Instructions). 
    
 ## Guides on Running BEAST_pype Workflows
 
-The documentation for running BEAST_pype's workflows is in the repo's [wiki](https://github.com/m-d-grunnill/BEAST_pype-documentation/wiki).
+The documentation for running BEAST_pype's workflows is in the repo's [wiki](https://github.com/m-d-grunnill/BEAST_pype/wiki).
 
 ## How to Contribute
 
