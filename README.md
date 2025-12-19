@@ -21,10 +21,6 @@ Features of BEAST_pype include:
 ### For instructions, getting started, and more details, please see [BEAST_pype's wiki](https://github.com/m-d-grunnill/BEAST_pype/wiki).
 
 ## IMPORTANT NOTES
-* With this early access version of beast_pype the beast_pype python package is
-  installed with the `-e` flag. This means it is intsalled in an editable development mode.
-  **MEANING IF YOU MAKE ANY CHANGES TO THE FILES IN  `src/beast_pype` THIS WILL
-  AFFECT YOUR beast_pype INSTALLATION**
 * For ease of distribution reasons beast_pype uses the version of BEAST 2 that is available via conda, specifically [bioconda](https://anaconda.org/bioconda/beast2), 2.6 as 2025-Jun-25. Template beast2 xmls from other versions of may not work. BEAST 2.7.7 is available on the conda channel [millerjeremya](https://anaconda.org/millerjeremya/beast2). However, I tested this on a Linux OS (2025-06-04) and could not get the command line arguments to work.
 
 ## Installation instructions:
