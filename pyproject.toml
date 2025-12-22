@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "beast_pype"
-version = "0.1.1"
+version = "0.1.2"
 dynamic = ["dependencies"]
 authors = [
     {name="Martin Grunnill", email="Martin.Grunnill@phac-aspc.gc.ca"},
@@ -59,33 +59,33 @@ dependencies = [
     { conda = 'beast2'},
     { pip = 'beast2-xml >= 1.4.1'},
     { pip = 'dark-matter'},
-    { conda = 'biopython'}, 
+    { pip = 'biopython'},
     { conda = 'iqtree'},
-    { conda = 'treetime'},
+    { pip = 'phylo-treetime'},
     { conda = 'seqkit'},
-    { conda = 'ete3'},
+    { pip = 'ete3'},
   # Python Data Sci
-    { conda = 'scipy'},
-    { conda = 'numpy'},
-    { conda = 'pandas'},
+    { pip = 'scipy'},
+    { pip = 'numpy'},
+    { pip = 'pandas'},
  # Plotting figures.
-    { conda = 'seaborn'},
-    { conda = 'matplotlib'},
+    { pip = 'seaborn'},
+    { pip = 'matplotlib'},
 # MCMC diagnostics_of_selection
-    { conda = 'arviz'},
-    { conda = 'xarray'},
+    { pip = 'arviz'},
+    { pip = 'xarray'},
 # Utils
     { pip = 'click'},
-    { conda = 'pyyaml'},
+    { pip = 'pyyaml'},
     { conda = 'parallel'},
     { pip = 'python-dateutil'},
 # Jupyter & Jutyper based workflow
-    { conda = 'jupyter'},
-    { conda = 'papermill'},
-    { conda = 'nbconvert'},
-    { conda = 'bash_kernel'},
-    { conda = 'nbformat'},
-    { conda = 'ipywidgets'}
+    { pip = 'jupyter'},
+    { pip = 'papermill'},
+    { pip = 'nbconvert'},
+    { pip = 'bash_kernel'},
+    { pip = 'nbformat'},
+    { pip = 'ipywidgets'}
 ]
 
 
