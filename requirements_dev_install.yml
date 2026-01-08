@@ -3,7 +3,11 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  # BEAST istelf
+  # For unit testing
+  - conda-forge::pytest
+  - conda-forge::pytest-xdist
+  - conda-forge::psutil
+  # BEAST itself
   - bioconda::beast2
   # Python
   # beast2-xml has had the occaisonal issue with installation python 3.12
@@ -36,6 +40,7 @@ dependencies:
   - conda-forge::nbformat
   - conda-forge::ipywidgets
   - conda-forge::bash_kernel
+  - conda-forge::ipykernel
   # For packges on pip:
   - conda-forge::pip
   - pip: # Packages on pip:

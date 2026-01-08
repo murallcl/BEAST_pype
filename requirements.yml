@@ -3,6 +3,10 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
+  # For unit testing
+  - conda-forge::pytest
+  - conda-forge::pytest-xdist
+  - conda-forge::psutil
   # BEAST istelf
   - bioconda::beast2
   # Python
@@ -36,6 +40,7 @@ dependencies:
   - conda-forge::nbformat
   - conda-forge::ipywidgets
   - conda-forge::bash_kernel
+  - conda-forge::ipykernel
   # For packges on pip:
   - conda-forge::pip
   - pip: # Packages on pip:
